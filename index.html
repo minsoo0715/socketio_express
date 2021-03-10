@@ -1,0 +1,30 @@
+<html>
+    <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:3000');
+        console.log('My socket id is :', socket.id);
+
+
+
+        function sendData() {
+            let data = document.getElementById("txt").value;
+            socket.emit('test', data)
+            document.getElementById('txt').value = '';
+        }
+
+        socket.on('input',(data) => {
+            var print = document.getElementById('print');
+            let p = document.createElement('p');
+            p.innerText = data;
+            print.appendChild(p);
+            console.log(print.innerText);
+        })
+    </script>
+    </head>
+    <body>
+        <input type="text" id="txt"> 
+        <input type="submit" value="누르셈" onclick="sendData()">
+        <div id="print"></div>
+    </body>
+</html>
